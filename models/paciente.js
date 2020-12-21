@@ -21,7 +21,11 @@ const pacientesSchema = new Schema({
     motivoConsulta: {
         type: String,
         trim: true
-    }
+    },
+    estado: {
+        type: Boolean,
+        default: false
+    },
 });
 
 module.exports = mongoose.model('Paciente', pacientesSchema);

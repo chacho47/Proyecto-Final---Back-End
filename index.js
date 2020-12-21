@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 // crear el servidor
 const app = express();
 
@@ -13,6 +13,8 @@ mongoose.connect('mongodb://localhost/T&SMedicina', {
     useUnifiedTopology: true,
     useFindAndModify: false
 }); 
+
+app.use(cors());
 
 //habilitar el body-parser
 app.use(bodyParser.json());
