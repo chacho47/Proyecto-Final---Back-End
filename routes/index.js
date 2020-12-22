@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pacienteController = require("../controllers/pacienteControllers");
 const medicoController = require("../controllers/medicoControllers");
+const turnoController = require("../controllers/turnoControllers");
 
 module.exports = function () {
   // Agrega nuevos medicos via POST
@@ -33,6 +34,23 @@ module.exports = function () {
 
   // Elimina un paciente por su ID
   router.delete("/pacientes/:id", pacienteController.eliminarPaciente);
+
+  // ---------------------------------------------------------------------------------//
+
+  // Agrega nuevos turnos via POST
+  router.post("/turnos", turnoController.nuevoTurno);
+
+  // Obtiene todos los registros de turnos en la BD
+  router.get("/turnos", turnoController.obtenerTurnos);
+
+  // Obtiene un turno en especifico (ID)
+  router.get("/turnos/:id", turnoController.obtenerTurno);
+
+  // Actualizar un registro con un ID especifico
+  router.put("/turnos/:id", turnoController.actualizarTurno);
+
+  // Elimina un paciente por su ID
+  router.delete("/turnos/:id", turnoController.eliminarTurno);
 
   return router;
 };
