@@ -5,7 +5,7 @@ const medicoController = require("../controllers/medicoControllers");
 
 module.exports = function () {
   // Agrega nuevos medicos via POST
-  router.post("/medicos", medicoController.nuevoCliente);
+  router.post("/medicos", medicoController.nuevoMedico);
 
   // Obtiene todos los registros de medicos en la BD
   router.get("/medicos", medicoController.obtenerMedicos);

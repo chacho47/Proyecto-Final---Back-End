@@ -1,7 +1,7 @@
 const Medico = require("../models/Medico");
 
-// Cuando se crea un nuevo cliente
-exports.nuevoCliente = async (req, res, next) => {
+// Cuando se crea un nuevo Medico
+exports.nuevoMedico = async (req, res, next) => {
   // crear objeto de paciente con datos de req.body
   const medico = new Medico(req.body);
 
