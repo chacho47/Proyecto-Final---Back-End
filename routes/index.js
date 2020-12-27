@@ -24,8 +24,15 @@ module.exports = function () {
   // Agrega nuevos pacientes via POST
   router.post("/pacientes", pacienteController.nuevoCliente);
 
+  // Loguear pacientes
+  router.post("/pacientes/login", pacienteController.loginPaciente);
+
+  // Desloguear pacientes
+  router.put("/pacientes/login", pacienteController.logoutPaciente);
+
   // Obtiene todos los registros de pacientes en la BD
   router.get("/pacientes", pacienteController.obtenerPacientes);
+
   // Obtiene un paciente en especifico (ID)
   router.get("/pacientes/:id", pacienteController.obtenerPaciente);
 
