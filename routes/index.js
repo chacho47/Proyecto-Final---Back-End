@@ -3,6 +3,7 @@ const router = express.Router();
 const pacienteController = require("../controllers/pacienteControllers");
 const medicoController = require("../controllers/medicoControllers");
 const turnoController = require("../controllers/turnoControllers");
+const auth = require("../middleware/auth");
 
 module.exports = function () {
   // Agrega nuevos medicos via POST
@@ -29,6 +30,8 @@ module.exports = function () {
 
   // Desloguear pacientes
   router.put("/pacientes/login", pacienteController.logoutPaciente);
+
+  router.get("/pacientes/login", auth, pacienteController.getSesion);
 
   // Obtiene todos los registros de pacientes en la BD
   router.get("/pacientes", pacienteController.obtenerPacientes);

@@ -18,7 +18,11 @@ exports.nuevoMedico = async (req, res, next) => {
 
 exports.obtenerMedicos = async (req, res, next) => {
   try {
-    const medicos = await Medico.find({});
+    let query = {};
+    if (req.query.especialidad) {
+      query = req.query;
+    }
+    const medicos = await Medico.find(query);
     res.json(medicos);
   } catch (error) {
     console.log(error);

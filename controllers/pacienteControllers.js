@@ -1,4 +1,5 @@
 const Paciente = require("../models/Paciente");
+const jwt = require("jsonwebtoken");
 
 // Cuando se loguea un paciente
 exports.loginPaciente = async (req, res, next) => {
@@ -13,11 +14,30 @@ exports.loginPaciente = async (req, res, next) => {
             { isLogged: true },
             {
               new: true,
-            },
-            (err, nuevoPaciente) => {
-              res.send(nuevoPaciente);
             }
           );
+          const payload = {
+            user: {
+              id: paciente._id
+            }
+          }
+          try {
+            jwt.sign(
+              payload,
+              "randomString",
+              {
+                expiresIn: 3600
+              },
+              (err, token) => {
+                if (err) throw err;
+                res.status(200).json({
+                  token
+                });
+              }
+            );
+          } catch (e) {
+            console.log(e);
+          }
         } else {
           res.json({ mensaje: "El password es incorrecto." });
         }
@@ -49,6 +69,16 @@ exports.logoutPaciente = async (req, res, next) => {
     next();
   }
 };
+
+exports.getSesion = async (req, res) => {
+  try {
+    // request.user is getting fetched from Middleware after token authentication
+    const user = await Paciente.findById(req.user.id);
+    res.json(user);
+  } catch (e) {
+    res.send({ message: "Error in Fetching user" });
+  }
+}
 
 // Cuando se crea un nuevo cliente
 exports.nuevoCliente = async (req, res, next) => {

@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const turnosSchema = new Schema({
-  nombre: {
+  nombrePaciente: {
+    type: String,
+    trim: true,
+  },
+  emailPaciente: {
     type: String,
     trim: true,
   },
@@ -10,7 +14,7 @@ const turnosSchema = new Schema({
     type: String,
     trim: true,
   },
-  medico: {
+  nombreMedico: {
     type: String,
     trim: true,
   },
@@ -22,7 +26,7 @@ const turnosSchema = new Schema({
     type: String,
     trim: true,
   },
-  motivoConsulta: {
+  consulta: {
     type: String,
     trim: true,
   },

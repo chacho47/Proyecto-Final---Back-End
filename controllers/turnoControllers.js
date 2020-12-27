@@ -18,7 +18,9 @@ exports.nuevoTurno = async (req, res, next) => {
 
 exports.obtenerTurnos = async (req, res, next) => {
   try {
-    const turnos = await Turno.find({});
+    const turnos = await Turno.find({
+      emailPaciente:"nachsalas93@gmail.com"
+    });
     res.json(turnos);
   } catch (error) {
     console.log(error);
