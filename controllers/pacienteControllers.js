@@ -1,11 +1,65 @@
 const Paciente = require("../models/Paciente");
 
+// Cuando se loguea un paciente
+exports.loginPaciente = async (req, res, next) => {
+  console.log(req.body);
+  try {
+    await Paciente.findOne({ username: req.body.username }, (err, paciente) => {
+      if (err) console.log(err);
+      if (paciente) {
+        if (paciente.password == req.body.password) {
+          Paciente.findOneAndUpdate(
+            { _id: paciente._id },
+            { isLogged: true },
+            {
+              new: true,
+            },
+            (err, nuevoPaciente) => {
+              res.send(nuevoPaciente);
+            }
+          );
+        } else {
+          res.json({ mensaje: "El password es incorrecto." });
+        }
+      } else {
+        res.json({ mensaje: "No se encontro el usuario." });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    next();
+  }
+};
+
+// Cuando se desloguea un paciente
+exports.logoutPaciente = async (req, res, next) => {
+  try {
+    await Paciente.findOneAndUpdate(
+      { id_: req.body._id },
+      { isLogged: false },
+      {
+        new: true,
+      },
+      (err, paciente) => {
+        res.json({ mensaje: "Usuario cerro sesion." });
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    next();
+  }
+};
+
 // Cuando se crea un nuevo cliente
 exports.nuevoCliente = async (req, res, next) => {
   // crear objeto de paciente con datos de req.body
-  const paciente = new Paciente(req.body);
-
   try {
+    const paciente = new Paciente({
+      dni: req.body.dni,
+      numero: req.body.numero,
+      username: req.body.email,
+      password: req.body.contrasena,
+    });
     await paciente.save();
     res.json({ mensaje: "El paciente se agregó correctamente" });
   } catch (error) {
