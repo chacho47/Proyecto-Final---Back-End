@@ -19,8 +19,15 @@ module.exports = function () {
 
   // Elimina un medico por su ID
   router.delete("/medicos/:id", medicoController.eliminarMedico);
+  // Loguear medicos
+  router.post("/medicos/login", medicoController.loginMedico);
 
-  // ---------------------------------------------------------------------------------//
+  // Desloguear medicos
+  router.put("/medicos/login", medicoController.logoutMedico);
+
+  router.get("/medicos/login", auth, medicoController.getSesion);
+
+  // ----------------------------------PACIENTES------------------------------------------//
 
   // Agrega nuevos pacientes via POST
   router.post("/pacientes", pacienteController.nuevoCliente);

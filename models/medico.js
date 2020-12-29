@@ -10,13 +10,17 @@ const medicoSchema = new Schema({
     type: String,
     trim: true,
   },
-  email: {
+  username: {
     type: String,
     trim: true,
   },
-  contrasena: {
+  password: {
     type: String,
     trim: true,
+  },
+  isLogged: {
+    type: Boolean,
+    default: false,
   },
 });
 

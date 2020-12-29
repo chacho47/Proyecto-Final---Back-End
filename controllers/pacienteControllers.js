@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 // Cuando se loguea un paciente
 exports.loginPaciente = async (req, res, next) => {
-  console.log(req.body);
   try {
     await Paciente.findOne({ username: req.body.username }, (err, paciente) => {
       if (err) console.log(err);
